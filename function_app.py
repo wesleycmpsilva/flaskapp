@@ -35,54 +35,7 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
     if pos == -1:
         return func.HttpResponse(f"You are calling the request {pos}")
     else:
-
-        item = url_aurora[pos]
-        headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-
-        count_success = 0
-        output = ""  # Initialize an empty string to accumulate messages
-
-        # Loop through each URL and make a request with its corresponding password
-        url = item['url']
-        alias = item['alias']
-        passwordKey = item['akvkey']
-        client = item['client']
-
-        service_url = url + f"/sap/opu/odata/AB4/GRC_CTE_OD_SEC01_APP_SRV_01/ControlDetailSet?sap-client={client}&sap-language=EN&saml2=disabled&$format=json"
-        service_alias = alias + f"/sap/opu/odata/AB4/GRC_CTE_OD_SEC01_APP_SRV_01/ControlDetailSet?sap-client={client}&sap-language=EN&saml2=disabled&$format=json"
-
-        user = 'SYS_MICSAUTO'
-        password = os.environ['AURORA_PASSWORD'] 
-        auth = HTTPBasicAuth(username=user, password=password)
-
-        exception_bool = False
-        try:
-            response = requests.get(service_url, headers=headers, auth=auth, verify=True, timeout=5)
-            output += f"{response.status_code} for {url}\n"
-            output += response.text[:150] + "\n"
-            response = requests.get(service_url, headers=headers, auth=auth, verify=False, timeout=5)
-            output += f"{response.status_code} for {url}\n"
-            output += response.text[:150] + "\n"
-
-            exception_bool = True
-        except Exception as e:
-            output += f"Error for {url}: {str(e)[0:75]}\n"
-
-        try:
-            response = requests.get(service_alias, headers=headers, auth=auth, verify=True, timeout=5)
-            output += f"{response.status_code} for {alias}\n"
-            output += response.text[:150] + "\n"
-            response = requests.get(service_alias, headers=headers, auth=auth, verify=False, timeout=5)
-            output += f"{response.status_code} for {alias}\n"
-            output += response.text[:150] + "\n"
-
-            exception_bool = True
-        except Exception as e:
-            output += f"Error for {alias}: {str(e)[0:75]}\n"
-            output += "{Erro by calling " + url + "}\n"
-
-        if exception_bool:
-            count_success += 1
+    
         output += "\n\n"
 
         return func.HttpResponse(
