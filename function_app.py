@@ -81,14 +81,19 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
         else:
             pos = req_body.get('pos')
 
-    if pos == None:
+    if not pos:
         return func.HttpResponse(f"You are not calling any request")
-    if pos == -1:
-        return func.HttpResponse(f"You are calling the request {pos}")
-    else:
-        output = get_auth_headers(url_aurora[pos])
 
-        return func.HttpResponse(
-             output + "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-             status_code=200
-        )
+    try:
+        pos = int(pos)
+        if pos == -1:
+            return func.HttpResponse(f"You are calling the request {pos}")
+        else pos >= 0:
+            output = get_auth_headers(url_aurora[pos])
+
+            return func.HttpResponse(
+                output + "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+                status_code=200
+            )
+    except Exception as e:
+        return func.HttpResponse(f"An error had ocurred!")
