@@ -30,7 +30,7 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
         else:
             pos = req_body.get('pos')
 
-    if pos == -1:
+    if not pos:
         return func.HttpResponse(f"You are not calling any request")
     if pos == -1:
         return func.HttpResponse(f"You are calling the request {pos}")
