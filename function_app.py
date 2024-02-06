@@ -87,7 +87,7 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
     pos = int(pos)
     if pos == -1:
         return func.HttpResponse(f"You are calling the request {pos}")
-    else pos >= 0:
+    if pos >= 0:
         output = get_auth_headers(url_aurora[pos])
 
         return func.HttpResponse(
