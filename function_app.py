@@ -17,6 +17,7 @@ url_aurora = [
     {'sys_name': 'STP', 'client': '100', 'url': 'http://spstptmsa001.one.ofc.loc:8000', 'alias': 'https://tm.stout.aurora.ab-inbev.com', 'akvkey': 'sysmicsautopass-stp100'},
 ]
 
+"""
 def get_auth_headers2(url_list, system_name):
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
@@ -68,6 +69,8 @@ def get_auth_headers2(url_list, system_name):
 
     output += f'Success rate for {system_name}: {count_success}/{len(url_list)}'
     return output
+    
+"""
 
 @app.route(route="http_adb_middleware")
 def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
@@ -85,7 +88,8 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
     if name:
         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
     else:
-        output = get_auth_headers2(url_aurora, 'Aurora')
+        #output = get_auth_headers2(url_aurora, 'Aurora')
+        output = "IT Works! "
         return func.HttpResponse(
              output + "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
