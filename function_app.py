@@ -21,14 +21,14 @@ url_aurora = [
 def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('pos')
-    if not name:
+    pos = req.params.get('pos')
+    if not pos:
         try:
             req_body = req.get_json()
         except ValueError:
             pass
         else:
-            name = req_body.get('pos')
+            pos = req_body.get('pos')
 
     if pos == -1:
         return func.HttpResponse(f"You are not calling any request")
