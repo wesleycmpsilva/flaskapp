@@ -54,11 +54,11 @@ def sql_vm(item):
     connectionString = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={ip};DATABASE={database};UID={user};PWD={password};Authentication=ActiveDirectoryPassword;TrustServerCertificate=YES;'
     
     results = ""
+    SQL_QUERY = """SELECT 1"""
 
     try:
         conn = pyodbc.connect(connectionString)
 
-        SQL_QUERY = """SELECT 1"""
         cursor = conn.cursor()
         cursor.execute(SQL_QUERY)
         
