@@ -55,8 +55,27 @@ def sql_vm(item):
     
     results = ""
 
+    try:
+        conn = pyodbc.connect(connectionString)
 
-    return "IT'S ALL OK"
+        SQL_QUERY = """SELECT 1"""
+        cursor = conn.cursor()
+        cursor.execute(SQL_QUERY)
+        
+        columns = [column[0] for column in cursor.description]
+
+        rows = cursor.fetchall()
+        conn.close()
+        for row in rows:
+            results.append(dict(zip(columns, row)))
+
+    except Exception as e:
+        try:
+            driver = sorted(pyodbc.drivers()).pop()
+        except Exception as e:
+            return f"1. Error {e} \n Here we have only. \n {SQL_QUERY} \n {connectionString}"
+        return f"2. Error {e} \n Here we have only {driver} \n {SQL_QUERY} \n {connectionString}"
+    return f"3. IT'S ALL OK. Error {e} \n {SQL_QUERY} \n {connectionString}"
 
 @app.route(route="http_adb_middleware")
 def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
