@@ -48,7 +48,7 @@ def https_call(item):
         output += response.text[:150] + "\n"
 
     except Exception as e:
-        output += "{Erro by calling " + url + route + "}\n"
+        output += f"Erro {e} by calling + {url}{route} \n"
 
     return output
 
