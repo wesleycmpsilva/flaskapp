@@ -73,9 +73,11 @@ def sql_vm(item):
         try:
             driver = sorted(pyodbc.drivers()).pop()
         except Exception as e:
-            return f"1. Error {e} \n Here we have only. \n {SQL_QUERY} \n {connectionString}"
-        return f"2. Error {e} \n Here we have only {driver} \n {SQL_QUERY} \n {connectionString}"
-    return f"3. IT'S ALL OK. Error {e} \n {SQL_QUERY} \n {connectionString}"
+            return f"1. Error {str(e)} \n Here we have only. \n {SQL_QUERY} \n {connectionString}"
+        else:
+            return f"2. Error {str(e)} \n Here we have only {driver} \n {SQL_QUERY} \n {connectionString}"
+    else:
+        return f"3. IT'S ALL OK. Error {str(e)} \n {SQL_QUERY} \n {connectionString}"
 
 @app.route(route="http_adb_middleware")
 def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
@@ -95,6 +97,6 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
         output = sql_vm(details)
 
     return func.HttpResponse(
-            output + "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+            output,
             status_code=200
     )
