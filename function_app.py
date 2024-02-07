@@ -17,7 +17,7 @@ url_aurora = [
     {'sys_name': 'STP', 'client': '100', 'url': 'http://spstptmsa001.one.ofc.loc:8000', 'alias': 'https://tm.stout.aurora.ab-inbev.com', 'akvkey': 'AURORA_PASSWORD'},
 ]
 
-def get_auth_headers(item, system_name):
+def get_auth_headers(item):
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     count_success = 0
