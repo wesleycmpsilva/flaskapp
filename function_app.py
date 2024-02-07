@@ -28,7 +28,6 @@ def str_to_bool(s):
 def https_call(item):
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    count_success = 0
     output = "" # Initialize an empty string to accumulate messages
 
     # Loop through each URL and make a request with its corresponding password
@@ -36,6 +35,7 @@ def https_call(item):
     user = item['username']
     passwordKey = item['akvkey']
     ssl = item['ssl']
+
     ssl = str_to_bool(ssl)
     
     password = os.environ[passwordKey] 
@@ -63,12 +63,8 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
     action = req_body.get('action')
     details = req_body.get('details')
 
-    return func.HttpResponse(
-            str(action) + "/n" + str(details),
-            status_code=200
-    )
-    #if action == 0:
-    #    output = https_call(details)
+    if action == 0:
+        output = https_call(details)
     #elif action == 1:
     #    output = sql_vm(req_body)
 
