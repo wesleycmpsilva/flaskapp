@@ -73,11 +73,11 @@ def sql_vm(item):
         try:
             driver = sorted(pyodbc.drivers()).pop()
         except Exception as e:
-            return f"1. Error {str(e)} \n Here we have only. \n {SQL_QUERY} \n {connectionString}"
+            return f"1. Error {str(e)} \n Here we have only. \n {SQL_QUERY} \n"
         else:
-            return f"2. Error {str(e)} \n Here we have only {driver} \n {SQL_QUERY} \n {connectionString}"
+            return f"2. Error {str(e)} \n Here we have only {driver} \n {SQL_QUERY} \n"
     else:
-        return f"3. IT'S ALL OK. Error {str(e)} \n {SQL_QUERY} \n {connectionString}"
+        return f"3. IT'S ALL OK. Error {str(e)} \n {SQL_QUERY} \n"
 
 @app.route(route="http_adb_middleware")
 def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
