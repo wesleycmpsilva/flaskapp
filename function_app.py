@@ -63,8 +63,12 @@ def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
     action = req_body.get('action')
     details = req_body.get('details')
 
-    if action == 0:
-        output = https_call(details)
+    return func.HttpResponse(
+            str(action) + "/n" + str(details),
+            status_code=200
+    )
+    #if action == 0:
+    #    output = https_call(details)
     #elif action == 1:
     #    output = sql_vm(req_body)
 
