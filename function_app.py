@@ -45,7 +45,7 @@ def https_call(item):
     try:
         response = requests.get(url + route, headers=headers, auth=auth, verify=ssl, timeout=5)
         output += f"{response.status_code} for {url}\n"
-        output += response.text[:150] + "\n"
+        output += response.text + "\n"
 
     except Exception as e:
         output += f"Erro {e} by calling + {url}{route} \n"
