@@ -49,8 +49,9 @@ def sql_vm(item):
     database = item['database']
     user = item['username']
     passwordKey = item['akvkey']
+    password = os.environ[passwordKey]
 
-    connectionString = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={ip};DATABASE={database};UID={user};PWD={passwordKey};Authentication=ActiveDirectoryPassword;TrustServerCertificate=YES;'
+    connectionString = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={ip};DATABASE={database};UID={user};PWD={password};Authentication=ActiveDirectoryPassword;TrustServerCertificate=YES;'
     
     try:
         conn = pyodbc.connect(connectionString)
