@@ -35,6 +35,7 @@ def https_call(item):
     user = item['username']
     passwordKey = item['akvkey']
     ssl = item['ssl']
+    route = item['route']
 
     ssl = str_to_bool(ssl)
     
@@ -42,7 +43,7 @@ def https_call(item):
     auth = HTTPBasicAuth(username=user, password=password)
 
     try:
-        response = requests.get(service_url, headers=headers, auth=auth, verify=ssl, timeout=5)
+        response = requests.get(url + route, headers=headers, auth=auth, verify=ssl, timeout=5)
         output += f"{response.status_code} for {url}\n"
         output += response.text[:150] + "\n"
 
