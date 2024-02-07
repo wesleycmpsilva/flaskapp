@@ -53,28 +53,10 @@ def sql_vm(item):
 
     connectionString = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={ip};DATABASE={database};UID={user};PWD={password};Authentication=ActiveDirectoryPassword;TrustServerCertificate=YES;'
     
-    try:
-        conn = pyodbc.connect(connectionString)
+    results = ""
 
-        SQL_QUERY = """SELECT 1"""
-        cursor = conn.cursor()
-        cursor.execute(SQL_QUERY)
-        
-        columns = [column[0] for column in cursor.description]
-        results = []
 
-        rows = cursor.fetchall()
-        conn.close()
-        for row in rows:
-            results.append(dict(zip(columns, row)))
-
-    except Exception as e:
-        try:
-            driver = sorted(pyodbc.drivers()).pop()
-        except:
-            return f"Error {e} \n Here we have only"
-        return f"Error {e} \n Here we have only {driver} \n {query}"
-    return results
+    return "IT'S ALL OK"
 
 @app.route(route="http_adb_middleware")
 def http_adb_middleware(req: func.HttpRequest) -> func.HttpResponse:
