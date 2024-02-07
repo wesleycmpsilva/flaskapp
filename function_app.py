@@ -17,6 +17,14 @@ url_aurora = [
     {'sys_name': 'STP', 'client': '100', 'url': 'http://spstptmsa001.one.ofc.loc:8000', 'alias': 'https://tm.stout.aurora.ab-inbev.com', 'akvkey': 'AURORA_PASSWORD'},
 ]
 
+def str_to_bool(s):
+    # Convert the string to lowercase to make the function case-insensitive
+    s = s.lower()
+    if s in ['true', 't', 'yes', 'y', '1']:
+        return True
+    elif s in ['false', 'f', 'no', 'n', '0']:
+        return False
+
 def https_call(item):
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
@@ -28,6 +36,7 @@ def https_call(item):
     user = item['username']
     passwordKey = item['akvkey']
     ssl = item['ssl']
+    ssl = str_to_bool(ssl)
     
     password = os.environ[passwordKey] 
     auth = HTTPBasicAuth(username=user, password=password)
